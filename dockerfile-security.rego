@@ -14,9 +14,7 @@ secrets_env = [
     "tkn"
 ]
 
-# TODO: Avoid to use sensitive data in environment variables
-#deny[msg] {
-allow[msg] {
+deny[msg] {
     input[i].Cmd == "env"
     val := input[i].Value
     contains(lower(val[_]), secrets_env[_])
@@ -69,14 +67,14 @@ deny[msg] {
 }
 
 # Any user...
-#any_user {
-#    input[i].Cmd == "user"
-# }
-#
-#deny[msg] {
-#    not any_user
-#    msg = "Do not run as root, use USER instead"
-#}
+any_user {
+    input[i].Cmd == "user"
+}
+
+deny[msg] {
+    not any_user
+    msg = "Do not run as root, use USER instead"
+}
 
 # ... but do not root
 forbidden_users = [
