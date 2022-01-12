@@ -6,8 +6,6 @@ RUN apk add --no-cache musl-dev
 WORKDIR /build
 COPY Cargo.toml Cargo.lock ./
 COPY ./src ./src/
-RUN cargo fetch
-# hadolint ignore=DL3059
 RUN cargo build --release
 
 FROM alpine:3.14 AS runtime
