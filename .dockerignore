@@ -1,0 +1,7 @@
+.git
+README.*
+LICENSE.txt
+Dockerfile
+.dockerignore
+.envrc
+target/**/*
