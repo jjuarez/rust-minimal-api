@@ -72,10 +72,6 @@ docker/build: docker/login ## Makes the Docker build and takes care of the remo
 docker/pull: docker/login
 	@docker image pull $(DOCKER_IMAGE):latest
 
-.PHONY: docker/test
-docker/test: docker/pull ## Testing the tools inside the Docker image
-	@docker run --name bats --rm --volume $(PWD):$(DOCKER_WORKDIR):ro -it $(DOCKER_IMAGE):latest $(DOCKER_WORKDIR)/tests/run.sh
-
 .PHONY: docker/vscan
 docker/vscan: docker/pull ## Makes a vulnerability scan over the Docker image
 	@docker run --name trivy --rm -e GITHUB_TOKEN -e TRIVY_DEBUG -e TRIVY_CACHE_BACKEND -e TRIVY_CACHE_DIR=/root/.cache/trivy \
