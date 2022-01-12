@@ -1,5 +1,4 @@
-ARG RUST_BASE_IMAGE_TAG=1.57
-FROM rust:${RUST_BASE_IMAGE_TAG} AS builder
+FROM rust:1.57-bullseye AS builder
 
 WORKDIR /build
 COPY Cargo.toml Cargo.lock ./
@@ -7,7 +6,7 @@ COPY ./src ./src/
 RUN cargo build --release
 
 
-FROM rust:${RUST_BASE_IMAGE_TAG}-slim AS runtime
+FROM gcr.io/distroless/cc
 LABEL\
   org.label-schema.schema-version="1.1.0"\
   org.label-schema.name="Rust/Rocket minimal API PoC"\
@@ -20,4 +19,4 @@ LABEL\
 COPY --from=builder /build/target/release/minimal-api /usr/local/bin/
 ENV ROCKET_ADDRESS=0.0.0.0
 EXPOSE 8000/TCP
-ENTRYPOINT [ "/usr/local/bin/minimal-api" ]
+CMD [ "/usr/local/bin/minimal-api" ]
