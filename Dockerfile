@@ -1,9 +1,13 @@
 FROM rust:1.57-alpine3.14 AS builder
 
+# hadolint ignore=DL3018
 RUN apk add --no-cache musl-dev
+
 WORKDIR /build
 COPY Cargo.toml Cargo.lock ./
 COPY ./src ./src/
+RUN cargo fetch
+# hadolint ignore=DL3059
 RUN cargo build --release
 
 FROM alpine:3.14 AS runtime
