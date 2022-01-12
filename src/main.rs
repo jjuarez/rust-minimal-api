@@ -1,18 +1,20 @@
-#[macro_use] extern crate rocket;
+use actix_web::{web, App, HttpServer, HttpRequest};
 
-#[get("/")]
-fn index() ->&'static str {
-    "Hello, world!"
+async fn index(req: HttpRequest) -> &'static str {
+    println!("REQ: {:?}", req);
+    "Hello world!"
 }
 
-#[get("/hello/<name>")]
-fn hello(name: &str) -> String {
-    format!("Hello, {}!", name)
-}
+#[actix_web::main]
+async fn main() -> std::io::Result<()> {
+    std::env::set_var("RUST_LOG", "actix_web=info");
 
-#[launch]
-fn rocket() -> _ {
-    rocket::build()
-        .mount("/", routes![index])
-        .mount("/", routes![hello])
+    println!("Starting server...");
+    HttpServer::new(|| {
+        App::new()
+            .service(web::resource("/").to(index))
+    })
+    .bind("0.0.0.0:8000")?
+    .run()
+    .await
 }
