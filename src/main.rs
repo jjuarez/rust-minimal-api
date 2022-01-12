@@ -1,8 +1,10 @@
 use actix_web::{get, App, HttpServer, HttpResponse, Responder};
 
+const GREETINGS: &str = "Hello world!";
+
 #[get("/")]
 async fn index() -> impl Responder {
-    HttpResponse::Ok().body("Hello world!")
+    HttpResponse::Ok().body(GREETINGS)
 }
 
 #[actix_web::main]
