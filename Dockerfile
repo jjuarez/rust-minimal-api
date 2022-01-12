@@ -1,12 +1,12 @@
-FROM rust:1.57-bullseye AS builder
+FROM rust:1.57-alpine3.14 AS builder
 
+RUN apk add --no-cache musl-dev
 WORKDIR /build
 COPY Cargo.toml Cargo.lock ./
 COPY ./src ./src/
 RUN cargo build --release
 
-
-FROM gcr.io/distroless/cc
+FROM alpine:3.14 AS runtime
 LABEL\
   org.label-schema.schema-version="1.1.0"\
   org.label-schema.name="Rust/Rocket minimal API PoC"\
@@ -17,6 +17,8 @@ LABEL\
   org.label-schema.maintainer="javier.juarez@gmail.com"
 
 COPY --from=builder /build/target/release/minimal-api /usr/local/bin/
-ENV ROCKET_ADDRESS=0.0.0.0
+RUN addgroup -S services && \
+    adduser -S svcuser -G services
+USER svcuser
 EXPOSE 8000/TCP
 CMD [ "/usr/local/bin/minimal-api" ]
