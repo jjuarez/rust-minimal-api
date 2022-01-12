@@ -1,3 +1,3 @@
-# Rust/rocket PoC
+# Rust web PoC
 
-This is just the simplest API developed with [rocket](https://rocket.rs/)
+This is just the simplest API developed with [Actix](https://actix.rs/)
