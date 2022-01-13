@@ -1,4 +1,4 @@
-use actix_web::{get, App, HttpServer, HttpResponse, Responder};
+use actix_web::{get, App, HttpResponse, HttpServer, Responder};
 
 const GREETINGS: &str = "Hello world!";
 
