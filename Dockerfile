@@ -1,4 +1,4 @@
-FROM rust:1.57-alpine3.14 AS builder
+FROM rust:1.58-alpine3.14 AS builder
 
 # hadolint ignore=DL3018
 RUN apk add --no-cache musl-dev
