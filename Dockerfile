@@ -1,4 +1,4 @@
-FROM rust:1.58-alpine3.14 AS builder
+FROM rust:1.59-alpine3.15@sha256:65b63b7d003f7a492cc8e550a4830aaa1f4155b74387549a82985c8efb3d0e88 AS builder
 
 # hadolint ignore=DL3018
 RUN apk add --no-cache musl-dev
@@ -8,7 +8,7 @@ COPY Cargo.toml Cargo.lock ./
 COPY ./src ./src/
 RUN cargo build --release
 
-FROM alpine:3.14 AS runtime
+FROM alpine:3.15 AS runtime
 LABEL\
   org.label-schema.schema-version="1.1.0"\
   org.label-schema.name="Rust/Rocket minimal API PoC"\

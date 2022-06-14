@@ -16,10 +16,10 @@ DOCKER_IMAGE              := $(DOCKER_REGISTRY)/$(DOCKER_REGISTRY_NAMESPACE)/$(D
 DOCKER_USERNAME           ?= jjuarez
 DOCKER_FILE               ?= Dockerfile
 
-HADOLINT_DOCKER_IMAGE        := hadolint/hadolint:v2.8.0
+HADOLINT_DOCKER_IMAGE        := hadolint/hadolint:v2.10.0
 SHELLCHECK_DOCKER_IMAGE      := koalaman/shellcheck:stable
-OPENPOLICYAGENT_DOCKER_IMAGE := openpolicyagent/conftest:v0.30.0
-TRIVY_DOCKER_IMAGE           := aquasec/trivy:0.22.0
+OPENPOLICYAGENT_DOCKER_IMAGE := openpolicyagent/conftest:v0.32.1
+TRIVY_DOCKER_IMAGE           := aquasec/trivy:0.28.1
 TRIVY_DEBUG                  ?= false
 TRIVY_CACHE_BACKEND          ?= fs
 TRIVY_CACHE_DIR              ?= $(HOME)/.cache/trivy
